@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${SELENIUM_BASE_NAME}-chrome-node
+  labels:
+    app: selenium4-node-chrome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium4-node-chrome
+  template:
+    metadata:
+      labels:
+        app: selenium4-node-chrome
+    spec:
+      volumes:
+      - name: dshm
+        emptyDir:
+          sizeLimit: "5120Mi"
+          medium: Memory
+      nodeSelector:
+            nodepool: de-nc-ke-np-e2e
+      containers:
+      - name: selenium4-node-chrome
+        image: selenium/node-chrome:4.6.0
+        ports:
+          - containerPort: 5553
+          - containerPort: 5555
+        volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+        env:
+          - name: SE_EVENT_BUS_HOST
+            value: ${SELENIUM_BASE_NAME}-hub
+          - name: SE_EVENT_BUS_PUBLISH_PORT
+            value: "4442"
+          - name: SE_EVENT_BUS_SUBSCRIBE_PORT
+            value: "4443"
+          - name: SE_NODE_MAX_SESSIONS
+            value: "32"
+          - name: SE_NODE_OVERRIDE_MAX_SESSIONS
+            value: "true"
+          - name: SE_NODE_SESSION_TIMEOUT
+            value: "1800"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "2"
+            ephemeral-storage: "2Gi"

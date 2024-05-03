@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${SELENIUM_BASE_NAME}-hub
+  labels:
+    app: selenium4-hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium4-hub
+  template:
+    metadata:
+      labels:
+        app: selenium4-hub
+    spec:
+      nodeSelector:
+        nodepool: de-nc-ke-np-e2e
+      containers:
+      - name: selenium4-hub
+        image: selenium/hub:4.6.0
+        env:
+          - name: SE_OPTS
+            value: "--log-level INFO"
+        ports:
+          - containerPort: 4442
+          - containerPort: 4443
+          - containerPort: 4444
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 4444
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 4444
+          initialDelaySeconds: 30
+          timeoutSeconds: 5

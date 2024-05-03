@@ -1,0 +1,7 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - selenium4-hub-service.yaml
+  - selenium4-hub-components.yaml
+  - selenium4-chrome-deployment.yaml
