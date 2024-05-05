@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${SELENIUM_BASE_NAME}-chrome-node
+  name: selenium-chrome-node
   labels:
     app: selenium4-node-chrome
 spec:
@@ -20,8 +20,6 @@ spec:
         emptyDir:
           sizeLimit: "5120Mi"
           medium: Memory
-      nodeSelector:
-            nodepool: de-nc-ke-np-e2e
       containers:
       - name: selenium4-node-chrome
         image: selenium/node-chrome:4.6.0
@@ -33,7 +31,7 @@ spec:
             name: dshm
         env:
           - name: SE_EVENT_BUS_HOST
-            value: ${SELENIUM_BASE_NAME}-hub
+            value: selenium-hub
           - name: SE_EVENT_BUS_PUBLISH_PORT
             value: "4442"
           - name: SE_EVENT_BUS_SUBSCRIBE_PORT

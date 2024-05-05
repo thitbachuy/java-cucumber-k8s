@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${SELENIUM_BASE_NAME}-hub
+  name: selenium-hub
   labels:
     app: selenium4-hub
 spec:
@@ -15,8 +15,6 @@ spec:
       labels:
         app: selenium4-hub
     spec:
-      nodeSelector:
-        nodepool: de-nc-ke-np-e2e
       containers:
       - name: selenium4-hub
         image: selenium/hub:4.6.0
