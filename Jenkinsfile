@@ -43,9 +43,10 @@ pipeline {
                 script {
                     echo 'Build k8s...'
                     withKubeConfig([credentialsId: 'user1', serverUrl: 'https://api.k8s.my-company.com']) {
-                    sh 'kubectl apply -f k8s/selenium-hub-service.yaml'
-                    sh 'kubectl apply -f k8s/selenium-hub-deployment.yaml'
-                    sh 'kubectl apply -f k8s/selenium-chrome-deployment.yaml'
+                        sh 'kubectl apply -f k8s/selenium-hub-service.yaml'
+                        sh 'kubectl apply -f k8s/selenium-hub-deployment.yaml'
+                        sh 'kubectl apply -f k8s/selenium-chrome-deployment.yaml'
+                    }
                 }
             }
         }
