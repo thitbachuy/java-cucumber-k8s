@@ -4,16 +4,16 @@ kind: Deployment
 metadata:
   name: selenium-chrome-node
   labels:
-    app: selenium4-node-chrome
+    app: selenium-node-chrome
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: selenium4-node-chrome
+      app: selenium-node-chrome
   template:
     metadata:
       labels:
-        app: selenium4-node-chrome
+        app: selenium-node-chrome
     spec:
       volumes:
       - name: dshm

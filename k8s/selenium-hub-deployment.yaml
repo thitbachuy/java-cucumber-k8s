@@ -4,19 +4,19 @@ kind: Deployment
 metadata:
   name: selenium-hub
   labels:
-    app: selenium4-hub
+    app: selenium-hub
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: selenium4-hub
+      app: selenium-hub
   template:
     metadata:
       labels:
-        app: selenium4-hub
+        app: selenium-hub
     spec:
       containers:
-      - name: selenium4-hub
+      - name: selenium-hub
         image: selenium/hub:4.6.0
         env:
           - name: SE_OPTS
