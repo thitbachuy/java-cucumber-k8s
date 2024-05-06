@@ -41,10 +41,10 @@ pipeline {
         stage('Build k8s') {
             steps {
                 script {
-                    echo 'install k8s...'
-                    sh 'curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash'
                     echo 'Build k8s...'
-                    sh 'kustomize build k8s'
+                    sh 'kubectl apply -f k8s/selenium-hub-service.yaml'
+                    sh 'kubectl apply -f k8s/selenium-hub-deployment.yaml'
+                    sh 'kubectl apply -f k8s/selenium-chrome-deployment.yaml'
                 }
             }
         }
