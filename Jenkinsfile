@@ -26,16 +26,16 @@ pipeline {
             quoteValue: false
         )
     }
-    stages {
-        node {
-          stage('List pods') {
+    node {
+        stage('List pods') {
             withKubeConfig([credentialsId: 'kubernetes-config']) {
                 sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                 sh 'chmod u+x ./kubectl'
                 sh './kubectl get pods'
             }
-          }
         }
+    }
+    stages {
         stage('Checkout') {
             steps {
                 echo 'Checkout...'
@@ -72,7 +72,7 @@ pipeline {
                         if (i > 0) {
                             tagging += " or "
                         }
-                        selectedOptions[i] = "@" +  selectedOptions[i]
+                        selectedOptions[i] = "@" + selectedOptions[i]
                         tagging += selectedOptions[i]
                     }
                     echo "tagging: ${tagging}"
