@@ -1,8 +1,5 @@
 pipeline {
     agent {
-        docker {
-            image 'alpinelinux/docker-cli'
-        },
          node {
                 stage('List pods') {
                     withKubeConfig([credentialsId: 'kubernetes-config']) {
@@ -11,7 +8,7 @@ pipeline {
                         sh './kubectl get pods'
                     }
                 }
-            }
+           }
     }
     parameters {
         extendedChoice(
